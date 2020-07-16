@@ -10,4 +10,8 @@ class Url2meApplicationTests {
 	fun contextLoads() {
 	}
 
+	// TODO: test controller
+	// TODO: test service
+	// TODO: test repo via H2
+
 }
