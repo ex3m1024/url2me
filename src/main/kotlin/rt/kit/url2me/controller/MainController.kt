@@ -1,6 +1,6 @@
 package rt.kit.url2me.controller
 
-import org.springframework.http.HttpStatus
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.web.bind.annotation.*
 import rt.kit.url2me.dto.UrlInput
 import rt.kit.url2me.dto.UrlOutput
@@ -9,11 +9,10 @@ import javax.validation.Valid
 
 @RestController
 @RequestMapping("/")
-class MainController(val service: ShortenerService) {
+class MainController(val service: ShortenerService, @Value("\${urldomain}") val domain: String) {
 
     @PostMapping("generate")
-    @ResponseStatus(HttpStatus.OK)
-    fun generate(@Valid @RequestBody body: UrlInput) = UrlOutput("localhost:8080/${service.shorten(body.url)}")
+    fun generate(@Valid @RequestBody body: UrlInput) = UrlOutput("$domain/${service.shorten(body.url)}")
 
     // TODO: Exception classes, ExceptionHandler
 
