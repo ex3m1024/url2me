@@ -1,0 +1,31 @@
+#%RAML 1.0
+title: URL2ME
+baseUri: http://localhost:8080
+version: v1
+
+/generate:
+  post:
+    description: Shorten a URL and return the result
+    queryParameters:
+        url:
+    responses:
+      200:
+        body:
+          application/json:
+            example: |
+              {
+                "data": {
+                    "url": "localhost:8080/abcd"
+                  },
+                "success": true,
+                "status": 200
+              }
+/{code}:
+    get:
+      description: Resolve the original URL from the given code and redirect to it
+      responses:
+        301:
+          headers:
+            Location:
+              example: https://google.com
+
