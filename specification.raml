@@ -7,7 +7,11 @@ version: v1
   post:
     description: Shorten a URL and return the result
     queryParameters:
-        url:
+      url:
+        example: |
+          {
+            "url": "https://google.com"
+          }
     responses:
       200:
         body:
@@ -15,17 +19,53 @@ version: v1
             example: |
               {
                 "data": {
-                    "url": "localhost:8080/abcd"
-                  },
+                  "url": "localhost:8080/abcd"
+                },
                 "success": true,
                 "status": 200
               }
+      400:
+        body:
+          application/json:
+            example: |
+              {
+                "message": "The specified 'url' parameter is not a valid URL",
+                "success": false,
+                "status": 400
+              }
+      500:
+        body:
+          application/json:
+            example: |
+              {
+                "message": "Something went wrong",
+                "success": false,
+                "status": 500
+              }
 /{code}:
-    get:
-      description: Resolve the original URL from the given code and redirect to it
-      responses:
-        301:
-          headers:
-            Location:
-              example: https://google.com
+  get:
+    description: Resolve the original URL from the given code and redirect to it
+    responses:
+      301:
+        headers:
+          Location:
+            example: https://google.com
+      404:
+        body:
+          application/json:
+            example: |
+              {
+                "message": "The URL is invalid",
+                "success": false,
+                "status": 404
+              }
+      500:
+        body:
+          application/json:
+            example: |
+              {
+                "message": "Something went wrong",
+                "success": false,
+                "status": 500
+              }
 
