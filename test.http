@@ -7,7 +7,7 @@ Content-Type: application/json
   "url": "https://google.com"
 }
 
-### Test 200 (resolve):
+### Test 301 (resolve):
 
 GET localhost:8080/abcd
 

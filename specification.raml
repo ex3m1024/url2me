@@ -9,39 +9,36 @@ version: v1
     queryParameters:
       url:
         example: |
-          {
-            "url": "https://google.com"
-          }
+        {
+          "url": "https://google.com"
+        }
     responses:
       200:
         body:
           application/json:
             example: |
-              {
-                "data": {
-                  "url": "localhost:8080/abcd"
-                },
-                "success": true,
-                "status": 200
+            {
+              "data": {
+                "url": "localhost:8080/abcd"
               }
+            }
       400:
         body:
           application/json:
             example: |
+            {
+              "message": |
               {
-                "message": "The specified 'url' parameter is not a valid URL",
-                "success": false,
-                "status": 400
+                "url": "must not be blank"
               }
+            }
       500:
         body:
           application/json:
             example: |
-              {
-                "message": "Something went wrong",
-                "success": false,
-                "status": 500
-              }
+            {
+              "message": "Something went wrong"
+            }
 /{code}:
   get:
     description: Resolve the original URL from the given code and redirect to it
@@ -54,18 +51,14 @@ version: v1
         body:
           application/json:
             example: |
-              {
-                "message": "The URL is invalid",
-                "success": false,
-                "status": 404
-              }
+            {
+              "message": "The URL is invalid"
+            }
       500:
         body:
           application/json:
             example: |
-              {
-                "message": "Something went wrong",
-                "success": false,
-                "status": 500
-              }
+            {
+              "message": "Something went wrong"
+            }
 
