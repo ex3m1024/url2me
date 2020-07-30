@@ -14,7 +14,13 @@ import javax.validation.Valid
 class MainController(val service: ShortenerService, @Value("\${urldomain}") val domain: String) {
 
     @PostMapping("generate")
-    fun generate(@Valid @RequestBody body: UrlInput) = ResponseEntity(UrlOutput("$domain/${service.shorten(body.url)}"), HttpStatus.OK)
+    fun generate(@Valid @RequestBody body: UrlInput): ResponseEntity<UrlOutput> =
+        service.shorten(body.url).let { code ->
+            ResponseEntity
+                .status(HttpStatus.OK)
+                .body(UrlOutput("$domain/${code}"))
+        }
+
 
     @GetMapping("{code}")
     fun resolve(@PathVariable(value = "code") code: String): ResponseEntity<Any> =
