@@ -1,0 +1,57 @@
+#%RAML 1.0
+title: URL2ME
+baseUri: http://localhost:8080/{version}
+version: v1
+
+/generate:
+  post:
+    description: Shorten a URL and return the result
+    body:
+      application/json:
+        url:
+          example: |
+          {
+            "url": "https://google.com"
+          }
+    responses:
+      200:
+        body:
+          application/json:
+            example: |
+            {
+              "url": "http://localhost:8080/v1/abcd"
+            }
+      400:
+        body:
+          application/json:
+            example: |
+            {
+              "message": "Invalid JSON"
+            }
+      422:
+        body:
+          application/json:
+            example: |
+            {
+              "message": "Validation failed",
+              "errors": [
+              {
+                "url": "must not be blank"
+              }
+              ]
+            }
+/{code}:
+  get:
+    description: Resolve the original URL from the given code and redirect to it
+    responses:
+      301:
+        headers:
+          Location:
+            example: https://google.com
+      404:
+        body:
+          application/json:
+            example: |
+            {
+              "message": "The URL is invalid"
+            }
